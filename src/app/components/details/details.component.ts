@@ -3,11 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { HousingService } from '../housing.service';
 import { HousingLocation } from '../housinglocation';
 import { CommonModule } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { first, last } from 'rxjs';
 
 
 @Component({
   selector: 'app-details',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
@@ -17,9 +19,25 @@ export class DetailsComponent {
 
   housingLocation: HousingLocation | undefined;
 
+  formAngular = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    email: new FormControl(''),
+  
+  });
+
   constructor() {
     const housingLocationId = Number(this.route.snapshot.params['id']); 
     this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+  }
+
+  onSubmit() {
+    this.housingService.submitApplication(
+      this.formAngular.value.firstName ?? '',
+      this.formAngular.value.lastName ?? '',
+      this.formAngular.value.email ?? ''
+    )
+      
   }
 
 }

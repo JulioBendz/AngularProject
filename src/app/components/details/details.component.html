@@ -17,4 +17,17 @@
             <li>Does this location have laundry: {{ housingLocation?.laundry }}</li>
         </ul>
     </section>
+
+    <section>
+        <h2>Apply Now to live here</h2>
+        <form [formGroup]="formAngular" (submit)="onSubmit()">
+            <label for="first-name">First Name</label>
+            <input type="text" formControlName="firstName" id="first-name" />
+            <label for="last-name">Last Name</label>
+            <input type="text" formControlName="lastName" id="last-name" />
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" id="email" />
+            <button type="submit" class="primary">Apply now</button>
+        </form>
+    </section>
 </article>
